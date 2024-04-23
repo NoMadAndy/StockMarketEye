@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktienkursvorhersage</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Aktienkursvorhersage</h2>
+        <form method="post" class="form-inline">
+            {{ form.hidden_tag() }}
+            <div class="form-group mb-2">
+                {{ form.symbol.label(class="sr-only") }}
+                {{ form.symbol(class="form-control mr-2", placeholder="Aktiensymbol") }}
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                {{ form.start_date.label(class="sr-only") }}
+                {{ form.start_date(class="form-control", placeholder="Startdatum (YYYY-MM-DD)") }}
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                {{ form.end_date.label(class="sr-only") }}
+                {{ form.end_date(class="form-control", placeholder="Enddatum (YYYY-MM-DD)") }}
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">{{ form.submit.label.text }}</button>
+        </form>
+        {% if plot_url %}
+            <div class="mt-4">
+                <h3>Vorhersageergebnisse:</h3>
+                <img src="data:image/png;base64,{{ plot_url }}" alt="Stock Price Prediction Plot" class="img-fluid">
+            </div>
+        {% endif %}
+        <div class="mt-4">
+            <h4>Debug-Ausgaben:</h4>
+            {% for log in debug_logs %}
+                <p>{{ log }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
